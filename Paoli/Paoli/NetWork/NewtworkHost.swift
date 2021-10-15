@@ -16,9 +16,17 @@ public enum HostType {
     
     case test                     //测试环境
 }
+
+public enum HostUrl {
+    
+    case H5                     //正式发布环境
+
+}
+
 extension HostType {
     
     static let isChange : Bool = false
+    
     
     /** 网络环境 */
     static func type() -> HostType {

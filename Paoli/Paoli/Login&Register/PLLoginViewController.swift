@@ -177,7 +177,7 @@ class PLLoginViewController: PLBaseViewViewController {
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.placeholder = "请输入登录密码"
         textField.font = UIFont.systemFont(ofSize: 16)
-//        textField.text = "123456"
+        textField.text = "123456"
 
         return textField;
     }()
@@ -185,7 +185,7 @@ class PLLoginViewController: PLBaseViewViewController {
     lazy var accountFd : UITextField = {
        
         let textField = UITextField(frame: CGRect(x:20, y:120, width:ScreenWidth-40, height:45))
-//        textField.text = "17688937355"
+        textField.text = "17688937355"
         textField.borderStyle = .roundedRect
         textField.adjustsFontSizeToFitWidth=true  //当文字超出文本框宽度时，自动调整文字大小
         textField.minimumFontSize=14  //最小可缩小的字号

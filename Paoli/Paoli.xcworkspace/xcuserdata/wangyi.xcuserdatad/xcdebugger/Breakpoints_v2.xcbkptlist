@@ -48,8 +48,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "301"
             endingLineNumber = "301"
-            landmarkName = "NetworkClient"
-            landmarkType = "3">
+            landmarkName = "handleResponseData(mType:responseData:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -84,14 +84,14 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "A4437EDB-661F-40FA-9BF3-78D93563748C - 6e38aacd683a5792"
+                  uuid = "A4437EDB-661F-40FA-9BF3-78D93563748C - a66121a7b795e4fe"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Paoli.PLLoginViewController.loginMsg(mobile: Swift.Optional&lt;Swift.String&gt;, smsCode: Swift.Optional&lt;Swift.String&gt;) -&gt; ()"
                   moduleName = "Paoli"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wangyi/Documents/Paoli/Paoli/Login&amp;Register/PLLoginViewController.swift"
+                  urlString = "file:///Users/wangyi/NewPaoli/Paoli/Paoli/Login&amp;Register/PLLoginViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "267"
@@ -99,14 +99,14 @@
                   offsetFromSymbolStart = "856">
                </Location>
                <Location
-                  uuid = "A4437EDB-661F-40FA-9BF3-78D93563748C - d67227bb8ca5fb9d"
+                  uuid = "A4437EDB-661F-40FA-9BF3-78D93563748C - 1e2bacd1530a4871"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 (Paoli.RequestResult&lt;Paoli.NullData&gt;) -&gt; () in Paoli.PLLoginViewController.loginMsg(mobile: Swift.Optional&lt;Swift.String&gt;, smsCode: Swift.Optional&lt;Swift.String&gt;) -&gt; ()"
                   moduleName = "Paoli"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/wangyi/Documents/Paoli/Paoli/Login&amp;Register/PLLoginViewController.swift"
+                  urlString = "file:///Users/wangyi/NewPaoli/Paoli/Paoli/Login&amp;Register/PLLoginViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "269"
@@ -216,47 +216,15 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "075FD71D-FAEB-4DCE-9D22-08CD4BC3C255"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Paoli/Base/ComonWebViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "deinit"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "96D49249-90D1-4A6D-9BF4-C83E92959AB8"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Paoli/Base/ComonWebViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "68A2AC93-E56E-4119-9D18-AE7C661DF717"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Paoli/Base/ComonWebViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
-            landmarkName = "webView(_:decidePolicyFor:decisionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -270,8 +238,8 @@
             filePath = "Paoli/Base/ComonWebViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "webView(_:decidePolicyFor:decisionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -279,15 +247,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "84430E98-FBA0-4A3A-81E5-B2545BE3C60A"
+            uuid = "DA18E301-6E25-4432-98E4-469D9BC46047"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Paoli/Base/ComonWebViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "webView(_:decidePolicyFor:decisionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
