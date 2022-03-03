@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+ platform :ios, '10.0'
 
 target 'Paoli' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -11,10 +11,11 @@ target 'Paoli' do
   pod 'SwiftyJSON'
   pod 'SVProgressHUD'
   pod 'Kingfisher'
-
-  pod 'MJRefresh'
+  pod 'MJRefresh', :git => 'https://github.com/CoderMJLee/MJRefresh.git'
   pod 'LYEmptyView'
-
   pod 'SnapKit'
   
+  pod 'Pingpp/Alipay', '~> 2.2.33'
+  pod 'Pingpp/Wx', '~> 2.2.33'
+
 end

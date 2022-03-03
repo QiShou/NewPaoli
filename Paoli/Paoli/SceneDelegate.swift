@@ -17,7 +17,7 @@
 import UIKit
 
 @available(iOS 13.0, *)
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate,WXApiDelegate {
 
     var window: UIWindow?
 
@@ -34,16 +34,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let windowScene = scene as! UIWindowScene
         window = UIWindow(windowScene: windowScene)
         window?.frame = UIScreen.main.bounds
-        window?.rootViewController = UINavigationController(rootViewController: PLLoginViewController())
-//        if AGUserDefaults().getUserDefaults(AGAccount) != nil && AGUserDefaults().getUserDefaults(AGPassword) != nil {
-//            window?.rootViewController = PLRootController(arr: [])
-//        } else {
 //        window?.rootViewController = UINavigationController(rootViewController: PLLoginViewController())
+        if AGUserDefaults().getUserDefaults(AGAccount) != nil && AGUserDefaults().getUserDefaults(AGPassword) != nil {
+            window?.rootViewController = PLRootController(arr: [])
+        } else {
+        window?.rootViewController = UINavigationController(rootViewController: PLLoginViewController())
 
-//        }
-        
+        }
         window?.makeKeyAndVisible()
         
+        pingRegister()
+        wxRegister()
     }
 
     
@@ -75,6 +76,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
         
+        
+        
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -87,6 +90,35 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
     }
 
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        print(URLContexts.first)
+        
+        guard let url = URLContexts.first?.url else { return }
+        
+        if url.scheme == "wx5527d1d7c4432c7c" {
+            
+            Pingpp.handleOpen(url) { (str, error) in
+                //        wx5527d1d7c4432c7c://pingpp?result=cancel
+                print("openURLContexts:\(str)")
+                
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: KNotificationNamePingPPURL) , object: nil, userInfo: ["result":str])
+            }
+        } else if url.scheme == "wx6ffee14f72685a78" {
+            WXApi.handleOpen(url, delegate: self)
+        }
+         
+    }
+    func scene(_ scene: UIScene, restoreInteractionStateWith stateRestorationActivity: NSUserActivity) {
+        print("restoreInteractionStateWith"+"\(stateRestorationActivity.activityType)")
+    }
+    func scene(_ scene: UIScene, didUpdate userActivity: NSUserActivity) {
+        print("didUpdate"  + " \(userActivity.activityType)")
+
+    }
+    
+    func onReq(_ req: BaseReq) {
+        
+    }
 
 }
 

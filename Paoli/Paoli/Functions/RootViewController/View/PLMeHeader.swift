@@ -10,8 +10,6 @@ import UIKit
 class PLMeHeader: UIView {
     var str:String?
     
-    
-   
     init(frame:CGRect,str:String?) {
         
         super.init(frame: frame)

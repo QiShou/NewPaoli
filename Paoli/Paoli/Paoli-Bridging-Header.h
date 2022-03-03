@@ -18,10 +18,12 @@
 #import <Kingfisher/Kingfisher-Swift.h>
 
 #import "WKWebViewJavascriptBridge.h"
+#import <Pingpp/Pingpp.h>
 
+#import <WechatOpenSDK/WXApiObject.h>
+#import <WechatOpenSDK/WXApi.h>
 
-
-
+#import "PrefixHeader.pch"
 
 //#import <KakaJSON/KakaJSON-Swift.h>
 //#import "UIButton+SSEdgeInsets.h"
@@ -30,7 +32,6 @@
 //#import "BDFCustomPhotoAlbum.h"
 //#import "CustomTextField.h"
 ////MARK:- pods导入三方库 头文件申明
-//#import <WechatOpenSDK/WXApi.h>
 //
 //#import <SnapKit/SnapKit-Swift.h>
 

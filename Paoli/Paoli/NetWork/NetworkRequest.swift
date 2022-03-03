@@ -82,8 +82,13 @@ public extension Request{
     }
     
     var headers: [String: String]? {
+        var dis = [String:String]()
         
-        let dis = ["sys" : "ios","version" : Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String,"Authorization":"\(AGUserDefaults().getUserDefaults(AGToken) ?? "")","client":"OWNERAPP"]
+        if self.path == "/bop-portal/open/login/account" {
+            dis = ["sys" : "ios","version" : Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String,"client":"OWNERAPP"]
+        } else {
+             dis = ["sys" : "ios","version" : Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String,"Authorization":"\(AGUserDefaults().getUserDefaults(AGToken) ?? "")","client":"OWNERAPP"]
+        }
         
         return dis
     }

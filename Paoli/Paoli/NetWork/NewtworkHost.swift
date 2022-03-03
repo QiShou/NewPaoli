@@ -61,12 +61,16 @@ extension HostType {
 
             
             return "https://gateway-test.itianding.com"
+//            return "https://bop-gateway-uat.itianding.com"
+
             
         case .develop:
             
 //           return "http://192.168.18.108:8004"
             
             return "https://gateway-test.itianding.com"
+
+//            return "https://bop-gateway-uat.itianding.com"
 
         }
     
@@ -87,7 +91,31 @@ extension HostType {
        case .develop:
            
            return "http://192.168.10.109"
+//           return "http://192.168.4.54:9528"
 
+
+       }
+    }
+    
+    
+    var webBaseUrl :String {
+        
+       switch self {
+        
+       case .release:
+           
+           return "https://tpos.tftpay.com"
+           
+       case .test:
+
+           return "https://owner-test.itianding.com"
+
+       case .develop:
+           
+           return "https://owner-test.itianding.com"
+//           return "https://ownerapp-uat.itianding.com"
+           return "http://192.168.4.54:9528"
+           
        }
     }
 
@@ -107,3 +135,5 @@ extension HostType {
         return ""       
     }
 }
+
+

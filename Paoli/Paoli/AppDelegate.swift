@@ -9,7 +9,9 @@ import UIKit
 import CoreData
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,WXApiDelegate,WXApiLogDelegate {
+   
+    
 
     var window: UIWindow?
 
@@ -17,21 +19,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
 
-        guard #available(iOS 13, *) else {
-            
-            window = UIWindow(frame: UIScreen.main.bounds)
+//        guard #available(iOS 13, *) else {
+//
+//
+//            return true
+//        }
+//
+        window = UIWindow(frame: UIScreen.main.bounds)
+        if AGUserDefaults().getUserDefaults(AGAccount) != nil && AGUserDefaults().getUserDefaults(AGPassword) != nil {
+            window?.rootViewController = PLRootController(arr: [])
+        } else {
             window?.rootViewController = UINavigationController(rootViewController: PLLoginViewController())
-//            if AGUserDefaults().getUserDefaults(AGAccount) != nil && AGUserDefaults().getUserDefaults(AGPassword) != nil {
-//                window?.rootViewController = PLRootController(arr: [])
-//            } else {
-//            }
-            window?.makeKeyAndVisible()
-            return true
         }
+        window?.makeKeyAndVisible()
         
+        
+        pingRegister()
+        wxRegister()
         return true
     }
 
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+        
+        WXApi.handleOpenUniversalLink(userActivity, delegate: self )
+        
+        
+        return true
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        
+        return true
+    }
     // MARK: UISceneSession Lifecycle
 
     @available(iOS 13.0, *)
@@ -95,3 +115,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension AppDelegate {
+    
+    func onReq(_ req: BaseReq) {
+        print(req)
+    }
+    
+    func onLog(_ log: String, logLevel level: WXLogLevel) {
+        print(log)
+    }
+}
+
+
+func pingRegister()  {
+    Pingpp.setUniversalLink("https://api.zanjiahao.com/")
+}
+
+func wxRegister(){
+    WXApi.registerApp(WXAppID, universalLink: "https://api.zanjiahao.com/")
+    WXApi.startLog(by: .detail, logDelegate: AppDelegate())
+    
+//    WXApi.checkUniversalLinkReady { (step, result) in
+//        print("\(step) result\(result)")
+//    }
+    
+}

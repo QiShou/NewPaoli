@@ -3,7 +3,7 @@
 //  AgentTool
 //
 //  Created by Wxb on 2020/8/18.
-//  Copyright © 2020 深圳市腾付通电子支付科技有限公司. All rights reserved.
+//  Copyright . All rights reserved.
 //
 
 import Foundation

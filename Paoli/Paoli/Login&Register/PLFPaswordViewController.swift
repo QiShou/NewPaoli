@@ -27,7 +27,6 @@ class PLFPaswordViewController: PLBaseViewViewController {
         self.view.addSubview(self.loginBtn)
         self.view.addSubview(self.downBtn)
         
-        
 
     }
     @objc func tapped(_ sender: UIButton){

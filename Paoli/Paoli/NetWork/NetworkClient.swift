@@ -52,7 +52,7 @@ class NetworkClient {
         
         networkHUDHandle(target: target, networkHUD: networkHUD)
         
-        print(r.baseURL.absoluteString + r.path)
+        print(r.baseURL.absoluteString + r.path + "\(r.headers ?? [:])")
         
         let provider = MoyaProvider<R>()
     
@@ -330,7 +330,7 @@ class NetworkClient {
             
         } else {
             
-            requestResult = .responseFail(errcode : jsonData["code"].intValue,msg : jsonData["message"].stringValue)
+            requestResult = .responseFail(errcode : jsonData["errorCode"].intValue,msg : jsonData["message"].stringValue)
         }
         
         return requestResult

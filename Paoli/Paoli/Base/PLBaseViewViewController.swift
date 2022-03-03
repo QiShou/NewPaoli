@@ -18,5 +18,17 @@ class PLBaseViewViewController: UIViewController {
     }
     
   
- 
+//    @available(iOS 12.0, *)
+//    - (UIUserInterfaceStyle)overrideUserInterfaceStyle {
+//
+//        return UIUserInterfaceStyleLight;
+//    }
+//
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    
+    
+    
 }

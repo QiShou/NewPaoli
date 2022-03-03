@@ -60,8 +60,18 @@ let kSuccessResultCode = "000000"
 //let LBFMTabBarHeight : CGFloat = isIphoneX ? 49 + 34 : 49
 
 
+// ping++
+let PayWxAppId = "wx5527d1d7c4432c7c"
+
+
+
+let WXAppID = "wx6ffee14f72685a78"
+let WXAppSecret = "82334f705b4ae5f43ff8e6d75ab622ed"
 //MARK:- 通知名称
 
 let kModifyUserInfo = "kModifyUserInfo"
 
 let kLogInAgain = "kLogInAgain"
+
+
+let KNotificationNamePingPPURL = "KNotificationNamePingPPURL"

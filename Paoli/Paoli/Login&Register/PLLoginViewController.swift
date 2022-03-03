@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 
 enum LoginType {
@@ -18,16 +19,10 @@ class PLLoginViewController: PLBaseViewViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
-        
         self.title = "登录"
         setUI()
-        
-        
-        
     }
-    
     
     @objc func tapped(_ sender: UIButton){
         if sender.tag == 100 {
@@ -79,15 +74,13 @@ class PLLoginViewController: PLBaseViewViewController {
         
         self.sendCodeMsg(mobile: self.accountFd.text ?? "", type: "LOGIN")
     }
-    
-    func setUI()  {
+     func setUI()  {
         self.view.addSubview(self.accountFd)
         self.view.addSubview(self.passwordFd)
         self.view.addSubview(self.fBtn)
         self.view.addSubview(self.vBtn)
         self.view.addSubview(self.loginBtn)
         self.view.addSubview(self.downBtn)
-
     }
     
 
@@ -96,18 +89,18 @@ class PLLoginViewController: PLBaseViewViewController {
         let dowBtn = CountdownButton(frame: .zero, callback: { btn, state, count in
             switch state {
                 
-                case .normal:
-                    btn.setTitle("获取验证码", for: .normal)
-                    btn.setTitleColor(CommonAppearance.mainBtnColor, for: .normal)
-                    
-                case .countdown:
-                    btn.setTitle("\(count)秒", for: .normal)
-                    btn.setTitleColor(CommonAppearance.mainBtnColor, for: .normal)
-                    
-                case .reget:
-                    btn.setTitle("重新获取", for: .normal)
-                    btn.setTitleColor(CommonAppearance.mainBtnColor, for: .normal)
-            }
+            case .normal:
+                btn.setTitle("获取验证码", for: .normal)
+                btn.setTitleColor(CommonAppearance.mainBtnColor, for: .normal)
+                
+            case .countdown:
+                btn.setTitle("\(count)秒", for: .normal)
+                btn.setTitleColor(CommonAppearance.mainBtnColor, for: .normal)
+                
+            case .reget:
+                btn.setTitle("重新获取", for: .normal)
+                btn.setTitleColor(CommonAppearance.mainBtnColor, for: .normal)
+        }
         })
 //        dowBtn.setTitleColor(UIColor.init(hexString: "#6B75FF"), for: .normal)
         dowBtn.frame = CGRect(x:ScreenWidth-120, y:170, width:120, height:45)
@@ -141,6 +134,7 @@ class PLLoginViewController: PLBaseViewViewController {
         btn.layer.cornerRadius = 10
         btn.layer.masksToBounds = true //设置圆角
         btn.setTitle("验证码登录", for:  .normal)//设置标题
+        btn.setTitle("密码登录", for: .selected)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 13)//设置字体大小
         btn.tag = 101
         btn.addTarget(self, action:#selector(tapped(_:)), for:UIControl.Event.touchUpInside)
@@ -177,15 +171,16 @@ class PLLoginViewController: PLBaseViewViewController {
         textField.font = UIFont.systemFont(ofSize: 16)
         textField.placeholder = "请输入登录密码"
         textField.font = UIFont.systemFont(ofSize: 16)
-        textField.text = "123456"
-
+        textField.text = "\(AGUserDefaults().getUserDefaults(AGPassword) ?? "")"
+        
+        textField.isSecureTextEntry = true
         return textField;
     }()
     
     lazy var accountFd : UITextField = {
        
         let textField = UITextField(frame: CGRect(x:20, y:120, width:ScreenWidth-40, height:45))
-        textField.text = "17688937355"
+        textField.text = AGUserDefaults().phone ?? ""
         textField.borderStyle = .roundedRect
         textField.adjustsFontSizeToFitWidth=true  //当文字超出文本框宽度时，自动调整文字大小
         textField.minimumFontSize=14  //最小可缩小的字号
@@ -202,8 +197,6 @@ class PLLoginViewController: PLBaseViewViewController {
 
 
 extension PLLoginViewController {
-    
-    
     
     func saveToken(_ dict:Dictionary<String, Any>)  {
         
@@ -228,7 +221,6 @@ extension PLLoginViewController {
             
             switch res {
             case .responseNoMap(data: let data):
-                print(data)
                 guard let dict = data.rawValue as? [String:Any] else {
                     return
                 }
@@ -238,13 +230,17 @@ extension PLLoginViewController {
                 AGUserDefaults().setUserDefaults("\(dict["account"] ?? "")", AGUserAccount)
                 self.switchTM(account: "\(dict["account"] ?? "")")
 
-                
-//                guard let arr = dict["tenants"] as? [Dictionary<String,Any>] , arr.count > 0 else {
-//
-//                    SVProgressHUD.showError(withStatus: "平台权限为空")
-//                    return
-//                }
                 break
+                
+            case .responseFail(let errcode, let msg):
+                if errcode == 10201 {
+                    SVProgressHUD.showError(withStatus: "该账户不存在，请使用验证码登录并设置密码")
+                    
+                    self.tapped(self.vBtn)
+                
+                }
+                break
+                
            
             default : break
             }
@@ -273,8 +269,25 @@ extension PLLoginViewController {
                     return
                 }
                 self.saveToken(dict)
+                AGUserDefaults().setUserDefaults(mobile, AGAccount)
+                
                 AGUserDefaults().setUserDefaults("\(dict["account"] ?? "")", AGUserAccount)
+                
+                guard let hasPassword = dict["hasSetPassword"] as? Bool ,hasPassword else {
+                    
+                    SVProgressHUD.showInfo(withStatus: "已为您注册账号，请先设置后直接登录")
+                    
+                    let con = PLSetPasswordViewController()
+                    con.accountFdStr = mobile
+                    con.comFrom = "loginViewController"
+                    self.navigationController?.pushViewController(con, animated: true)
+                    return ;
+                }
+                AGUserDefaults.setUserBoolDefaults(dict["hasSetPassword"], AGHasSetPassord)
+                
                 self.switchTM(account: "\(dict["account"] ?? "")")
+                
+                
             default : break
             }
         }
@@ -315,7 +328,6 @@ extension PLLoginViewController {
         
         guard mobile?.count ?? 0 > 0 else {
             SVProgressHUD.showError(withStatus: "请输入手机号")
-            
             return
         }
         guard type?.count ?? 0 > 0 else {

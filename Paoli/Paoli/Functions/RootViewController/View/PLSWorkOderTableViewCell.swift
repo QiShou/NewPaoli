@@ -168,7 +168,6 @@ class PLSWorkOderTableViewCell: UITableViewCell {
     
     override func layoutIfNeeded() {
         super.layoutIfNeeded()
-        print("layoutIfNeeded")
     }
     override func layoutSubviews() {
         super.layoutSubviews()

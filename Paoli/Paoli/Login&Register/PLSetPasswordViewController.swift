@@ -9,8 +9,12 @@ import UIKit
 
 
 class PLSetPasswordViewController: PLBaseViewViewController {
-    var accountFdStr : String?
-    
+    var accountFdStr : String? {
+        willSet {
+            self.accountFd.text = newValue
+        }
+    }
+    var comFrom:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,9 +31,7 @@ class PLSetPasswordViewController: PLBaseViewViewController {
         self.view.addSubview(self.mesgCodeFd)
         self.view.addSubview(self.loginBtn)
         self.view.addSubview(self.downBtn)
-        
-        
-
+      
     }
     @objc func tapped(_ sender: UIButton){
         if sender.tag == 100 {
@@ -178,11 +180,17 @@ extension PLSetPasswordViewController {
         
         let request = UserAPI.setPayPwd(mobile: mobile ?? "", password: password?.md5 ?? "", repeatPassword: password?.md5 ?? "", smsCode: smsCode ?? "")
         
-        NetworkClient.default.sent(request, mType:NullData.self, networkHUD: .lockScreenAndError) { (res) in
+        NetworkClient.default.sent(request, mType:NullData.self, networkHUD: .lockScreenAndError) { [self] (res) in
             switch res {
             
             case .responseNoMap(data: let data):
-                self.navigationController?.popViewController(animated: true)
+                
+                if comFrom == "loginViewController" {
+                    switchTM(account: nil)
+                } else {
+                    
+                    self.navigationController?.popViewController(animated: true)
+                }
                 break
             case .requestFail,.responseFail:
         
@@ -192,5 +200,34 @@ extension PLSetPasswordViewController {
             }
         }
 
+    }
+    
+    
+    func switchTM(account:String?) {
+        
+      let accounts = AGUserDefaults().getUserDefaults(AGUserAccount) as? String
+        guard accounts?.count ?? 0 > 0 else {
+            SVProgressHUD.showError(withStatus: "账户为空")
+            return
+        }
+        
+        let api = UserAPI.switchTenantMenu(account: accounts!)
+        NetworkClient.default.sent(api, mType: CommonListRes<PBUserRoleModule>.self, networkHUD: .lockScreenButNavWithError) { res in
+          
+            switch res {
+            
+            case .responseObject(model: let model):
+               
+                UIApplication.shared.keyWindow!.rootViewController = PLRootController(arr: model.tabMenu)
+
+            case .requestFail,.responseFail:
+                break
+            default :
+                break;
+            }
+            
+           
+        }
+        
     }
 }

@@ -7,19 +7,11 @@
 
 import UIKit
 
-
-import UIKit
-
 class PLMeViewController: BaseTableViewController {
 
         override func viewDidLoad() {
             super.viewDidLoad()
-            
-        
             setupUI()
-            // Do any additional setup after loading the view.
-    //        getBannerList()
-            
             userIfon()
         }
 
@@ -29,9 +21,73 @@ class PLMeViewController: BaseTableViewController {
         return v
     }()
     
+    
+//https://owner-test.itianding.com/#/collectionSign?projectId=1
+    
         lazy var items :[CommonCellItemModel] = {
             
             var items :[CommonCellItemModel]
+            
+            let item5 = CommonCellItemModel.init(title: "托收签约",image: "", opration: { [weak self] in
+                
+                let dict = ["pd":"ios","projectId":AGUserDefaults().projectId ?? ""/*,"phone":AGUserDefaults().phone ?? ""*/]
+                let str = URLPath().prarm(dict)
+                let url = URL(string: HostType.type().webBaseUrl+URLPath().urlPathString.collectionSign+str)
+                let com = ComonWebViewController(url: url!, title: "托收签约")
+                com.isShowNav = true
+                self?.navigationController?.pushViewController(com, animated: true)
+
+            })
+            
+            
+            let item4 = CommonCellItemModel.init(title: "预交费",image: "", opration: { [weak self] in
+                
+                let dict = ["pd":"ios"/*,"projectId":AGUserDefaults().projectId ?? "","phone":AGUserDefaults().phone ?? ""*/]
+                let str = URLPath().prarm(dict)
+                
+                let url = URL(string: HostType.type().webBaseUrl+URLPath().urlPathString.preCharge+str)
+                let com = ComonWebViewController(url: url!, title: "预交费")
+                com.isShowNav = true
+                self?.navigationController?.pushViewController(com, animated: true)
+
+            })
+            
+            
+            let item000 = CommonCellItemModel.init(title: "物业账单",image: "", opration: { [weak self] in
+                
+                let dict = ["pd":"ios","projectId":AGUserDefaults().projectId ?? "",/*"phone":AGUserDefaults().phone ?? ""*/]
+                let str = URLPath().prarm(dict)
+                
+                let url = URL(string: HostType.type().webBaseUrl+URLPath().urlPathString.utilityBill+str)
+                let com = ComonWebViewController(url: url!, title: "物业账单")
+                com.isShowNav = true
+                self?.navigationController?.pushViewController(com, animated: true)
+
+            })
+            
+            let item00 = CommonCellItemModel.init(title: "业主认证",image: "", opration: { [weak self] in
+                
+                let dict = ["pd":"ios",/*"projectId":AGUserDefaults().projectId ?? "",*/"phone":AGUserDefaults().phone ?? ""]
+                let str = URLPath().prarm(dict)
+                
+                let url = URL(string: HostType.type().webBaseUrl+URLPath().urlPathString.userApplyRecord+str)
+                let com = ComonWebViewController(url: url!, title: "业主认证")
+                com.isShowNav = true
+                self?.navigationController?.pushViewController(com, animated: true)
+
+            })
+            
+            let item0 = CommonCellItemModel.init(title: "服务记录",image: "", opration: { [weak self] in
+                
+                let dict = ["pd":"ios","projectId":AGUserDefaults().projectId ?? "","phone":AGUserDefaults().phone ?? ""]
+                let str = URLPath().prarm(dict)
+                
+                let url = URL(string: HostType.type().webBaseUrl+URLPath().urlPathString.serviceOrder+str)
+                let com = ComonWebViewController(url: url!, title: "服务记录")
+                com.isShowNav = true
+                self?.navigationController?.pushViewController(com, animated: true)
+
+            })
             
             let item1 = CommonCellItemModel.init(title: "设置密码",image: "", opration: { [weak self] in
                 
@@ -46,16 +102,17 @@ class PLMeViewController: BaseTableViewController {
 
             })
             let item3 = CommonCellItemModel.init(title: "退出登录", image:"", opration: {
-                
-//                let vc = AboutViewController()
-//                self.navigationController?.pushViewController(vc, animated: true)
-                
+                                
                 self.loginOut(account: "")
             })
-            
-           
-            items = [item1,item2,item3]
-            
+ 
+            guard let hassetPassword = AGUserDefaults.hasSetPassord ,hassetPassword else {
+                
+                items = [item5,item4,item000,item00,item0,item2,item3]
+                return items
+            }
+            items = [item5,item4,item000,item00,item0,item1,item3]
+
             return items
         }()
 
@@ -72,25 +129,14 @@ class PLMeViewController: BaseTableViewController {
             tableView.separatorColor = UIColor.init(hexString: "EEEEEE")
             tableView.separatorInset = UIEdgeInsets.init(top: 0, left: 15, bottom: 0, right: 0)
             tableView.rowHeight = 60
-            
             let header = UIView()
             header.height = 140
-         
             header.addSubview(self.plView)
-            
             self.tableView.tableHeaderView = header
-
-            
             self.tableView.reloadData()
-
         }
-        
-     
-        
-        
+       
     }
-
-
     extension PLMeViewController {
         
         override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -138,9 +184,7 @@ extension PLMeViewController {
                 break
             default : break
             }
-            
         }
-        
     }
     
     func loginOut(account:String?)  {
@@ -162,15 +206,11 @@ extension PLMeViewController {
                 AGUserDefaults().setUserDefaults("", AGToken)
                 
                 break
-    
             case .requestFail,.responseFail:
                 
                 break
             default : break
             }
-            
         }
-        
     }
-    
 }

@@ -18,8 +18,8 @@ class PLChangePasViewController: PLBaseViewViewController {
     }
     
     func setUI(){
-        self.view.addSubview(self.accountFd)
-        self.view.addSubview(self.passwordFd)
+        self.view.addSubview(self.newWdTf)
+        self.view.addSubview(self.oldWdTf)
         self.view.addSubview(self.loginBtn)
         
     }
@@ -27,7 +27,7 @@ class PLChangePasViewController: PLBaseViewViewController {
     @objc func tapped(_ sender: UIButton){
         if sender.tag == 100 {
 
-            changepwd(mobile: "", newPassword: self.accountFd.text, oldPassword: self.passwordFd.text)
+            changepwd(mobile: "", newPassword: self.newWdTf.text, oldPassword: self.oldWdTf.text)
         }
     }
     lazy var loginBtn:UIButton = {
@@ -46,7 +46,7 @@ class PLChangePasViewController: PLBaseViewViewController {
         return btn
         
     }()
-    lazy var passwordFd : UITextField = {
+    lazy var oldWdTf : UITextField = {
        
         let textField = UITextField(frame: CGRect(x:20, y:170, width:ScreenWidth-40, height:45))
         textField.borderStyle = .roundedRect
@@ -60,7 +60,7 @@ class PLChangePasViewController: PLBaseViewViewController {
 
         return textField;
     }()
-    lazy var accountFd : UITextField = {
+    lazy var newWdTf: UITextField = {
        
         let textField = UITextField(frame: CGRect(x:20, y:120, width:ScreenWidth-40, height:45))
 //        textField.text = "17688937355"
@@ -75,9 +75,7 @@ class PLChangePasViewController: PLBaseViewViewController {
         textField.backgroundColor = .white
         return textField;
     }()
-
-  
-   
+ 
 }
 extension PLChangePasViewController {
     
@@ -100,7 +98,7 @@ extension PLChangePasViewController {
             return
         }
         
-        let request = UserAPI.changePwd(mobile: moble, newPassword: newPassword!, oldPassword: oldPassword!)
+        let request = UserAPI.changePwd(account: moble, newPassword: newPassword!.md5, oldPassword: oldPassword!.md5)
         
         NetworkClient.default.sent(request, mType:NullData.self, networkHUD: .lockScreenAndError) { (res) in
             switch res {

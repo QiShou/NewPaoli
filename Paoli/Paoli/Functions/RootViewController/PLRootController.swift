@@ -10,13 +10,22 @@ import UIKit
 class PLRootController: UITabBarController {
 
     var arr : [PBUserRoleModule]?
-    
-    
     init(arr:[PBUserRoleModule]?) {
         super.init(nibName: nil, bundle: nil)
     
-        self.addChildCon(PLHomeViewController(), "首页", "ic_index_unselect", "ic_index_select")
-        self.addChildCon(PLMeViewController(), "我的", "ic_mine_unselect", "ic_mine_select")
+        let str = URLPath().prarm(["pd":"ios"])
+        let homeUrl = URL(string: HostType.type().webBaseUrl+URLPath().urlPathString.home+str)
+        let homeWebCon = ComonWebViewController(url: homeUrl!, title: "")
+        self.addChildCon(homeWebCon, "首页", "ic_index_unselect", "ic_index_select")
+
+        let myUrl = URL(string: HostType.type().webBaseUrl+URLPath().urlPathString.my+str)
+        let myWebCon = ComonWebViewController(url: myUrl!, title: "")
+        
+//        self.addChildCon(PLHomeViewController(), "首页", "ic_index_unselect", "ic_index_select")
+        self.addChildCon(PLGoodViewController(), "商城", "ic_mine_unselect", "ic_mine_select")
+        self.addChildCon(PLPpenDoorViewController(), "开门", "ic_index_unselect", "ic_index_select")
+//        self.addChildCon(PLMeViewController(), "我的", "ic_mine_unselect", "ic_mine_select")
+        self.addChildCon(myWebCon, "我的", "ic_mine_unselect", "ic_mine_select")
         
     }
     
@@ -26,10 +35,9 @@ class PLRootController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
         initThemes()
-      
+        
     }
     
     private func addChildCon(_ con:PLBaseViewViewController,_ title:String? , _ imageName: String , _ seletedImgName:String)  {
@@ -43,7 +51,8 @@ class PLRootController: UITabBarController {
     private func initThemes() {
         tabBar.isTranslucent = false
 
-        tabBar.shadowImage = UIImage()
+//        tabBar.shadowImage = UIImage()
+        tabBar.backgroundColor = .white
         
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UINavigationBar.self]).setTitleTextAttributes([
             NSAttributedString.Key.foregroundColor: UIColor.init(red: 0.5, green: 0.5, blue: 0.6, alpha: 1),
@@ -55,15 +64,5 @@ class PLRootController: UITabBarController {
         
       
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
